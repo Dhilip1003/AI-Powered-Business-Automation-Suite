@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: ai-business-automation
+  
+  datasource:
+    url: jdbc:h2:mem:automationdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# AI API Configuration
+ai:
+  openai:
+    api-key: ${OPENAI_API_KEY:your-api-key-here}
+    base-url: https://api.openai.com/v1
+    model: gpt-3.5-turbo
+    max-tokens: 1000
+    temperature: 0.7
+  
+  automation:
+    max-retries: 3
+    timeout-seconds: 30
+    enable-logging: true
+
+# Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
